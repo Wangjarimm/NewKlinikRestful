@@ -34,11 +34,14 @@ func main() {
 	router.HandleFunc("/dokter/{id}", auth.JWTAuth(dokter.PutDokter)).Methods("PUT")
 	router.HandleFunc("/dokter/{id}", auth.JWTAuth(dokter.DeleteDokter)).Methods("DELETE")
 
+	allowedOrigins := []string{"http://127.0.0.1:5500", "https://Wangjarimm.github.io"}
+
 	c := cors.New(cors.Options{
-		AllowedOrigins: []string{"*"},
+		AllowedOrigins:   allowedOrigins,
+        AllowCredentials: true,
 		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE"},
 		AllowedHeaders: []string{"Content-Type", "Authorization"},
-		Debug:          true,
+		Debug: true,
 	})
 
 	handler := c.Handler(router)
