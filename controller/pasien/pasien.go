@@ -101,7 +101,7 @@ func PutPasien(w http.ResponseWriter, r *http.Request) {
 		SET nama_lengkap=?, nik=?, jenis_kelamin=?, tempat_lahir=?, tanggal_lahir=?, alamat=?, no_hp=?
 		WHERE id = ?`
 	// Execute the SQL statement
-	result, err := database.DB.Exec(query, pc.Namalengkap, pc.Nik, pc.Jeniskelamin, pc.Tempatlahir, pc.Tanggallahir, pc.Alamat, pc.Nohp, pc.Reservasi, pc.TglReservasi, id)
+	result, err := database.DB.Exec(query, pc.Namalengkap, pc.Nik, pc.Jeniskelamin, pc.Tempatlahir, pc.Tanggallahir, pc.Alamat, pc.Nohp, id)
 	if err != nil {
 		http.Error(w, "Failed to update course: "+err.Error(), http.StatusInternalServerError)
 		return
