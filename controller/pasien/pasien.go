@@ -21,7 +21,7 @@ func GetPasien(w http.ResponseWriter, r *http.Request) {
     var pasiens []pasien.Pasien
     for rows.Next() {
         var c pasien.Pasien
-        if err := rows.Scan(&c.Id, &c.Namalengkap, &c.Nik, &c.Jeniskelamin, &c.Tempatlahir, &c.Tanggallahir, &c.Alamat, &c.Nohp, &c.Reservasi, &c.IdJadwal, &c.TglReservasi); err != nil {
+        if err := rows.Scan(&c.Id, &c.Namalengkap, &c.Nik, &c.Jeniskelamin, &c.Tempatlahir, &c.Tanggallahir, &c.Alamat, &c.Nohp); err != nil {
             http.Error(w, err.Error(), http.StatusInternalServerError)
             return
         }
@@ -49,11 +49,11 @@ func PostPasien(w http.ResponseWriter, r *http.Request) {
 
 	// Prepare the SQL statement for inserting a new pasien
 	query := `
-		INSERT INTO pasien (nama_lengkap, nik, jenis_kelamin, tempat_lahir, tanggal_lahir, alamat, no_hp, reservasi, tgl_reservasi) 
-		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
+		INSERT INTO pasien (nama_lengkap, nik, jenis_kelamin, tempat_lahir, tanggal_lahir, alamat, no_hp) 
+		VALUES (?, ?, ?, ?, ?, ?, ?,)`
 
 	// Execute the SQL statement
-	res, err := database.DB.Exec(query, pc.Namalengkap, pc.Nik, pc.Jeniskelamin, pc.Tempatlahir, pc.Tanggallahir, pc.Alamat, pc.Nohp, pc.Reservasi, pc.TglReservasi)
+	res, err := database.DB.Exec(query, pc.Namalengkap, pc.Nik, pc.Jeniskelamin, pc.Tempatlahir, pc.Tanggallahir, pc.Alamat, pc.Nohp)
 	if err != nil {
 		http.Error(w, "Failed to insert course: "+err.Error(), http.StatusInternalServerError)
 		return
@@ -98,7 +98,7 @@ func PutPasien(w http.ResponseWriter, r *http.Request) {
 	// Prepare the SQL statement for updating the category admin
 	query := `
 		UPDATE pasien 
-		SET nama_lengkap=?, nik=?, jenis_kelamin=?, tempat_lahir=?, tanggal_lahir=?, alamat=?, no_hp=?, reservasi=?, tgl_reservasi=?
+		SET nama_lengkap=?, nik=?, jenis_kelamin=?, tempat_lahir=?, tanggal_lahir=?, alamat=?, no_hp=?
 		WHERE id = ?`
 	// Execute the SQL statement
 	result, err := database.DB.Exec(query, pc.Namalengkap, pc.Nik, pc.Jeniskelamin, pc.Tempatlahir, pc.Tanggallahir, pc.Alamat, pc.Nohp, pc.Reservasi, pc.TglReservasi, id)

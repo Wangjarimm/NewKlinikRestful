@@ -11,7 +11,4 @@ type Pasien struct {
 	Tanggallahir string       `json:"tanggal_lahir"`
 	Alamat       string       `json:"alamat"`
 	Nohp         string       `json:"no_hp"`
-	Reservasi    string       `json:"reservasi"`
-	IdJadwal     string       `json:"id_jadwal"`
-	TglReservasi string       `json:"tgl_reservasi"`
 }
